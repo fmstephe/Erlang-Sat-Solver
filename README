@@ -1,0 +1,3 @@
+A distributed Sat Solver written in Erlang.
+
+This is the prototype of the java project. The Erlang prototype took about 2 1/2 years to complete and the Java version took three weeks. I can safely say this is the right way around. I would far rather spend all of my time in Erlang, but it isn't fast enough for this task.

@@ -1,0 +1,51 @@
+<project name="Parallel SAT solver" default="compile" basedir=".">
+	
+	<property name="src-dir" value="${basedir}/src"/>
+	<property name="include-dir" value="{${basedir}/include"/>
+	<property name="build-dir" value="${basedir}/build"/>
+	<property name="build-src" value="${build-dir}/src"/>
+	<property name="build-beam" value="${build-dir}/beam"/>
+	
+	<property name="erlang-compiler" value="erlc"/>
+	
+	<path id="src-paths">
+		<fileset dir="${basedir}">
+			<include name="**/*.erl"/>
+			<include name="**/*.hrl"/>
+			<include name="**/*.hrl"/>
+		</fileset>
+	</path>
+	
+	<path id="compile-paths">
+		<fileset dir="${build-src}">
+			<include name="*.erl"/>
+		</fileset>
+	</path>
+	
+	<target name="clean" depends="">
+		<delete dir="${build-dir}"/>
+	</target>
+	
+	<target name="make-build-dirs" depends="clean">
+		<mkdir dir="${build-dir}"/>
+		<mkdir dir="${build-src}"/>
+		<mkdir dir="${build-beam}"/>
+	</target>
+	
+	<target name="copy-src" depends="make-build-dirs">
+		<copy todir="${build-src}" flatten="true">
+			<path refid="src-paths"/>
+		</copy>
+	</target>
+	
+	<target name="prepare-build" depends="make-build-dirs,copy-src">
+	</target>
+	
+	<target name="compile" depends="prepare-build">
+		<apply executable="${erlang-compiler}" dir="${build-beam}">
+			<arg line="-I ${build-src}"/>
+			<path refid="compile-paths"/>
+		</apply>
+	</target>
+	
+</project>
